@@ -1,21 +1,46 @@
-const cookies = [{name:"Chocolate Cookies"},{name:"Macaron Cookies"}]
-const newCookie = {name:"Biscotti Cookies"};
+const snacks = [{ name: 'Chocolate Cookies' }, { name: 'Macaron Cookies' }];
+const newSnack = { name: 'Biscotti Cookies' };
 
-// Progression 1: create a function to get all the cookies
+function getAllSnacks() {
+  let output = '';
+  for (let i = 0; i < snacks.length; i++) {
+    output += snacks[i].name + ' ';
+  }
+  document.body.innerHTML = output;
+  return output;
+}
 
-   // Progression 2: using setTimeout() - use 1000 units for time parameter
+setTimeout(() => {
+  const allSnacks = getAllSnacks();
+  console.log(allSnacks);
+}, 1000);
 
+function createSnack(newSnack) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (newSnack) {
+        snacks.push(newSnack);
+        resolve();
+      } else {
+        reject('error');
+      }
+    }, 2000);
+  });
+}
 
-//Progression 3: Create a function to creat cookies and create an object of Promise.
+createSnack(newSnack)
+  .then(() => {
+     getAllSnacks();
+  })
+  .catch(error => console.error(error));
 
+async function createAndDisplaySnacks() {
+  try {
+    await createSnack(newSnack);
+    getAllSnacks();
+  } catch (error) {
+    console.log(error);
+  }
+}
 
-    // Progression 4: adding two parameters and using setTimeout() - use 2000 units for time parameter
-
-      
-      // Progression 5: handling errors and adding new cookie to the list
-
-
-// Progression 7: creating a new async function
-
-// calling the new async function
-
+createAndDisplaySnacks(); 
